@@ -1,0 +1,5 @@
+#this is an example file of the transforms to be passed to the odom_tf_publisher
+
+STATIC_TRANSFORM /base_link /kinect_depth_optical_frame Rt 0 0 1 0.15 -1 0 0 0 0 -1 0 0  
+STATIC_TRANSFORM /base_link /xtion_depth_optical_frame Rt -1 0 0 0 0 0 -1 -0.15 0 -1 0 0  
+STATIC_TRANSFORM /base_link /xtion_rgb_optical_frame Rt -1 0 0 0 0 0 -1 -0.15 0 -1 0 0  

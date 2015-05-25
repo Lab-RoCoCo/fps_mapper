@@ -1,0 +1,12 @@
+# ignore build files
+*.o
+*.so
+
+
+# ignore backups made by text editors
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~

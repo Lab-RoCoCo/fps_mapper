@@ -1,0 +1,55 @@
+1) record a bag with all sensors
+   - tf (nominal)
+
+   -topic of interest
+    - depth/image_raw
+    - depth/camera_info
+
+   - odom (for later)
+
+2) when recording the bag stand still for some seconds at the beginning
+   tecord the  bag in an environment rich in structure, where you
+   are sure that the *depth-only* mapping will work out
+
+3) from the bag, generate a dump file containing the relevant infos by playing the bag and letting
+   the following node running
+
+   ps_message_dumper_node -t depth1/image_raw> -t depth2_image_raw -base_link_frame_id /base_link -o output.dump.txt   
+
+4) now we need to generate clouds for the *camera_only* slam mechanism, by using the single cameras
+   from the file "output.dump.txt" we generated, we can run the tracker
+
+   grep <topic_of_1st_sensor> output.dump.txt > 1st_sensor.txt
+   grep <topic_of_2nd_sensor> output.dump.txt > 2nd_sensor.txt
+
+   ps_tracker_gui_app -cam_only -bpr 1 -o 1st_sensor 1st_sensor.txt
+   When you see some structure you have seen with the 2nd sensor, press s (and ignore the message on the screen)
+   this will save a cloud 1st_sensor-00000.cloud
+   if you press "S" multiple times you will save multiple clouds
+   R for reset.
+
+   Stop as early as you see a decent amount of maop seen by the  2nd sensor
+
+   Repeat the procedure with the 2nd sensor
+   
+4) align the clouds from the different sensors
+   ps_aligner_gui <cloud1> <cloud2> ...
+
+   you will see a guy with the clouds of the different sensors misaligned.
+   
+   With "shift-click" you select a cloud (might take a while depending on your video card)
+   
+   With "M" you toggle the move mode, that moves the clouds with the cursor-keys and pgup/dwn (ctrl for rotating)
+
+   Using this put  acloud onto the other, roughly
+
+   To refine the process, click on both clouds and press "M".
+
+   This will match the clouds with icp
+   
+   With "P" you print the transforms of all clouds (t + ed quaternions), on the shell
+   the forst cloud should be 0 0 0 0 0 0
+
+   The numbers you find in the 2nd cloud are the relative alignment between the teo clouds,
+   and thus the two sensors
+
