@@ -1,4 +1,3 @@
-LIST( APPEND CMAKE_MODULE_PATH "/home/johann/repo-bonn/g2o/cmake_modules" )
 
 add_library(fps_ros_library
   local_map_listener.cpp
@@ -232,6 +231,7 @@ TARGET_LINK_LIBRARIES(fps_local_mapper_dumper_node
 FIND_PACKAGE(SuiteSparse REQUIRED)
 INCLUDE_DIRECTORIES(${CSPARSE_INCLUDE_DIR})
 
+set(CMAKE_MODULE_PATH "${G2O_ROOT}/cmake_modules;${CMAKE_MODULE_PATH}")
 FIND_PACKAGE(G2O REQUIRED)
 INCLUDE_DIRECTORIES(${G2O_INCLUDE_DIR})
 

@@ -7,35 +7,13 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 
-find_package(G2O REQUIRED1)
 # 
 # add g2o project
 # 
-#set(G2O_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/G2O")
-#set(G2O_INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/G2O")
-#set(G2O_CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${G2O_INSTALL_DIR})
-
-#list(APPEND CMAKE_MODULE_PATH "${G2O_INSTALL_DIR}")
-#list(APPEND CMAKE_MODULE_PATH "${G2O_INSTALL_DIR}/src/G2O/cmake_modules/")
-#list(APPEND CMAKE_PREFIX_PATH "${G2O_PREFIX}")
-
-#MESSAGE( "MODULE PATH=${CMAKE_MODULE_PATH}" )
-#MESSAGE( "PREFIX PATH=${CMAKE_PREFIX_PATH}" )
-
-##find_package(G2O PATHS "${G2O_INSTALL_DIR}/src/G2O/cmake_modules/")
-#find_package(G2O)
-#include(ExternalProject)
-
-#ExternalProject_Add( G2O
-##  PREFIX ${G2O_PREFIX}
-#  GIT_REPOSITORY https://github.com/RainerKuemmerle/g2o.git
-#  INSTALL_DIR ${G2O_INSTALL_DIR}
-#  CMAKE_ARGS ${G2O_CMAKE_ARGS}
-#)
-
-#ExternalProject_Get_Property( g2o install_dir )
-#include_directories(${install_dir}/include)
-
+MESSAGE( "G2O_ROOT=${G2O_ROOT}" )
+set(CMAKE_MODULE_PATH "${G2O_ROOT}/cmake_modules;${CMAKE_MODULE_PATH}")
+MESSAGE( "MODULE PATH=${CMAKE_MODULE_PATH}" )
+find_package(G2O REQUIRED)
 
 #if(NOT ${G2O_FOUND})
     #rerun cmake in initial build
@@ -46,8 +24,8 @@ find_package(G2O REQUIRED1)
 #else()
     #Rescan becomes a dummy target after first build
     #this prevents cmake from rebuilding cache/projects on subsequent builds
-#    MESSAGE("g2o found")
-#    add_custom_target(Rescan)
+    #MESSAGE("g2o found")
+    add_custom_target(Rescan)
 #endif()
 
 
@@ -270,7 +248,7 @@ include_directories(
 
 if(${G2O_FOUND})
 	
-	#MESSAGE("g2o found - adding sub-directory")
+	MESSAGE("g2o found - adding sub-directory")
 	ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/src)
 	
 endif()

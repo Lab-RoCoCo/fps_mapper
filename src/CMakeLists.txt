@@ -1,4 +1,3 @@
-#LIST( APPEND CMAKE_MODULE_PATH "/home/johann/repo-bonn/g2o/cmake_modules" )
 #FIND_PACKAGE(G2O REQUIRED)
 
 
@@ -22,6 +21,7 @@ ADD_SUBDIRECTORY(calibration)
 ADD_SUBDIRECTORY(ros_wrappers)
 ADD_SUBDIRECTORY(ros_utils)
 ADD_SUBDIRECTORY(fps_ext_calib)
+ADD_SUBDIRECTORY(loop_closer)
 
 ADD_SUBDIRECTORY(fps_ros_bridge)
 #ADD_SUBDIRECTORY(traversability)
